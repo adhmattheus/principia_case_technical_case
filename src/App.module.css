@@ -1,0 +1,21 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* .container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.container {
+  border: 2px solid lightblue;
+  border-radius: 10px;
+  margin-top: 2rem;
+  padding: 2rem;
+} */

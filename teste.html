@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste</title>
+    <style>
+        body {
+            margin: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            height: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .form {
+            margin: 0 auto;
+            padding: 8px;
+            width: 300px;
+            max-width: 80%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form">
+            <div class="form-group">
+                <label for="dadosEntrada">Dados de entrada</label>
+                <sub>Escreva os dados ou adicione um arquivo .csv</sub>
+                <input type="file" id="csvFile" accept=".csv" />
+                <textarea id="dadosEntrada" rows="10">
+matricula,mes,valor,status
+001,2022-01,1000.0,pago
+001,2022-02,1000.0,pago
+001,2022-03,1000.0,aberto
+001,2022-04,1000.0,aberto
+002,2022-01,500.0,aberto
+002,2022-02,650.0,aberto
+002,2022-03,600.0,aberto
+002,2022-04,650.0,aberto
+003,2022-01,500.0,pago
+003,2022-02,350.0,pago
+003,2022-03,500.0,pago
+003,2022-04,500.0,pago</textarea>
+                <button type="button" id="btnCalcular">Calcular</button>
+            </div>
+            <hr>
+            <div class="form-group">
+                <label for="dadosSaida">Dados de saída</label>
+                <textarea id="dadosSaida" rows="10" readonly></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const dadosEntrada = document.getElementById("dadosEntrada");
+        const dadosSaida = document.getElementById("dadosSaida");
+        const csvFile = document.getElementById("csvFile");
+        const btnCalcular = document.getElementById("btnCalcular");
+
+        csvFile.addEventListener("change", handleFile, false);
+        function handleFile() {
+            const input = csvFile.files[0];
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const text = e.target.result;
+                dadosEntrada.value = text;
+                csvFile.value = "";
+                handleCalcular();
+            };
+            reader.readAsText(input);
+        }
+
+        btnCalcular.addEventListener("click", handleCalcular, false);
+        function handleCalcular() {
+            try {
+                const dados = csvToArray(dadosEntrada.value)
+                    .sort((a,b) => a.mes > b.mes ? 1 : a.mes < b.mes ? -1 : 0);
+                
+                const columns = ["matricula","mes","valor","status"];
+                if (!Object.keys(dados[0]).every((s) => columns.some((c) => s == c)))
+                    throw `Dados devem possuir as colunas: matricula,mes,valor,status`;
+                    
+                const meses = groupBy(dados, "mes");
+                
+                const resultado = [];
+                
+                const keys = Object.keys(meses);
+                for (let i = 0; i < keys.length; i++) {
+                    const keyI = keys[i];
+                    let _valorAberto = 0;
+                    let _valorTotal = 0;
+                    for (let j = 0; j <= i; j++) {
+                        const keyJ = keys[j];
+                        _valorAberto += meses[keyJ]
+                            .filter((item) => item.status == "aberto")
+                            .reduce((acc, item) => acc + parseFloat(item.valor), 0);
+                        _valorTotal += meses[keyJ]
+                            .reduce((acc, item) => acc + parseFloat(item.valor), 0);
+                    }
+                    const _inadimplencia = _valorAberto / _valorTotal;
+
+                    resultado.push({
+                        mes: keyI,
+                        inadimplencia: _inadimplencia
+                    });
+                }
+                    
+                dadosSaida.innerText = JSON.stringify(resultado);
+            } catch (error) {
+                console.error(error);
+                dadosSaida.innerText = JSON.stringify(error);
+            }
+        }
+
+        /**
+         * Converter string em csv pra array
+         *
+         * @param {string} str
+         * @param {string} separator
+         * @return {array}
+         */
+        function csvToArray(str, separator = ",") {
+            const headers = str.slice(0, str.indexOf("\n")).split(separator);
+            const rows = str.slice(str.indexOf("\n") + 1).split("\n");
+            const arr = rows.map(function (row) {
+                const values = row.split(separator);
+                const el = headers.reduce(function (object, header, index) {
+                object[header] = values[index];
+                return object;
+                }, {});
+                return el;
+            });
+            return arr;
+        }
+
+        /**
+         * Agrupar array por chave
+         *
+         * @param {array} array
+         * @param {string} key
+         * @return {{}}
+         */
+         function groupBy (array, key) {
+            return array.reduce((acc, item) => {
+                if (!acc[item[key]]) acc[item[key]] = [];
+                acc[item[key]].push(item);
+                return acc;
+            }, {})
+        }
+    </script>
+</body>
+</html>

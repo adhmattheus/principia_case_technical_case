@@ -1,0 +1,43 @@
+.card {
+  background: white;
+  border-radius: 10px;
+  width: 515px;
+  margin-top: 25px;
+}
+
+table {
+  border-collapse: collapse;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.card_header {
+  padding: 0.5rem;
+}
+
+.card_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #C2E15C;
+}
+
+thead tr {
+  border-top: 1px solid #C2E15C;
+  border-bottom: 1px solid #C2E15C;
+}
+
+thead td {
+  font-weight: 700;
+}
+
+td {
+  padding: rem 0.8rem;
+  font-size: .5rem;
+  color: #222;
+}
+
+.table_responsive{
+  width: 100%;
+  overflow-x: auto;
+}

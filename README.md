@@ -1,4 +1,5 @@
 <h1 align="center"> Dashboard</h>
+<br/>
 
 <p align="center">
   <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
@@ -14,7 +15,8 @@
 <br>
 
 <p align="center">
-  <img alt="calendario da copa" src=".github/preview.jpg" width="100%">
+  <img alt="imagem da aplicacao" src="./src/assets/img1.PNG" width="100%">
+  <img alt="imagem da aplicacao" src="./src/assets/img2.PNG" width="100%">
 </p>
 
 ## 🚀 Tecnologias
@@ -33,7 +35,7 @@ Aplicação desenvolvida como solução do caso prática proposto pela Princípi
 
 Baseado em ideias do desenvolvedor.
 
-## :memo: Licença
+## 📝 Licença
 
 Esse projeto está sob a licença MIT.
 

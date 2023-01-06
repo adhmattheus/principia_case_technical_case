@@ -29,7 +29,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - Vercel
 
 ## 💻 Projeto
-Aplicação desenvolvida como solução do caso prática proposto pela Princípia. Com upload de um arquivo .csv, é gerada uma dashboard contendo as principais informaçóes do arquivo. Há dois arquivos de planilha no formato da questão para teste dentro do repositório (teste.csv e teste2.csv), e também um arquivo teste.html, contendo um rascuno da lógia usada para resoluçao do problema, em html e javascript.
+Aplicação desenvolvida como solução do caso prática proposto pela Princípia. Com upload de um arquivo .csv, é gerada uma dashboard contendo as principais informaçóes do arquivo. Há dois arquivos de planilha no formato da questão para teste dentro do repositório (teste.csv e teste2.csv), e também um arquivo teste.html, contendo um rascunho da lógia usada para resoluçao do problema, em html e javascript.
 
 ## 🔖 Layout
 

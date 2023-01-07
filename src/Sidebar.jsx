@@ -77,7 +77,7 @@ export function Sidebar() {
           </li>
           <li><a href="">
             <Users size={32} />
-            <span>Matriculas</span></a>
+            <span>Matrículas</span></a>
           </li>
 
         </div>

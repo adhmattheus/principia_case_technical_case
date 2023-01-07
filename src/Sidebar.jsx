@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowUp, CalendarCheck, ChartBar, CodepenLogo, FileCsv, Student, Table, Users } from "phosphor-react";
+import { ArrowDown, ArrowUp, CalendarCheck, ChartBar, CodepenLogo, FileCsv, Student, Table, Users, Warning } from "phosphor-react";
 import { TableDataMonth } from "./Components/TableDataMonth";
 import { LineChart } from "./Components/LineChart";
 import { TableData } from "./Components/TableData";
@@ -23,6 +23,12 @@ export function Sidebar() {
   const [amountEnrollments, setAmountEnrollments] = useState();
   const [openValueTotal, setOpenValueTotal] = useState('');
   const [paidValueTotal, setPaidValueTotal] = useState('');
+  const [baddebetTotal, setbaddebetTotal] = useState();
+
+
+  useEffect(() => {
+    setbaddebetTotal(Number((((Number(openValueTotal) / (Number(openValueTotal) + Number(paidValueTotal)))) * 100).toFixed(2)));
+  }, [paidValueTotal, openValueTotal])
 
   useEffect(() => {
     setAmountEnrollments(totalEnrollments);
@@ -31,14 +37,14 @@ export function Sidebar() {
   useEffect(() => {
     const openTotal = extractByMonth.map(
       function (item) {
-        return parseFloat(item.totalValorAberto);
+        return parseFloat(item.totalValorAbertoMes);
       }
     );
     setOpenValueTotal(sumArray(openTotal).toFixed(2));
 
     const paidTotal = extractByMonth.map(
       function (item) {
-        return parseFloat(item.totalValorPago);
+        return parseFloat(item.totalValorPagoMes);
       }
     );
     setPaidValueTotal(sumArray(paidTotal).toFixed(2));
@@ -80,16 +86,7 @@ export function Sidebar() {
       <div className={styles.main_container}>
 
         <header>
-
-
-          {/* <div className={styles.updatefile}>
-            <ListDashes size={32} />
-            <h2>
-              Dashboard
-            </h2>
-          </div> */}
-
-
+    
           <div className={styles.updatefile}>
             <span> <FileCsv size={32} /></span>
             <InputFile />
@@ -154,15 +151,27 @@ export function Sidebar() {
                 </div>
               </div>
 
+              <div className={styles.card_single}>
+                <div>
+                  {extractByMonth.length === 0 ? <h2>-</h2> : (
+                    <h2>{baddebetTotal} %</h2>
+                  )}
+                  <span>Total Inadimplência</span>
+                </div>
+                <div>
+                  <span><Warning /></span>
+                </div>
+              </div>
+
             </div>
 
             <div className={styles.barchart}>
               <BarChart />
               <div className={styles.second_chart}>
-              <LineChart />
-              <DoughnutChart/>
+                <LineChart />
+                <DoughnutChart />
               </div>
-             
+
             </div>
 
             <div className={styles.table}>

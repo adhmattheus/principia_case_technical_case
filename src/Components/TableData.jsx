@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { DataContext } from '../Context/DataContext';
 import styles from './TableData.module.css'
 
@@ -6,13 +6,8 @@ export function TableData() {
 
   const { dataFile } = useContext(DataContext);
 
-  useEffect(() => {
-    //processa dataFile e salva as variaveis de estado
-
-  }, []);
-
   return (
-    
+
     <div className={styles.card}>
       <div className={styles.card_header}>
         <h3>Dados da Planilha</h3>

@@ -33,8 +33,8 @@ export function TableDataMonth() {
                 <tr key={JSON.stringify(item)}>
 
                   <td>{item.mes}</td>
-                  <td>R$ {item.totalValorPago}</td>
-                  <td>RS {item.totalValorAberto}</td>
+                  <td>R$ {item.totalValorPagoMes}</td>
+                  <td>RS {item.totalValorAbertoMes}</td>
                   <td>RS {item.valorTotal}</td>
                   <td>{item.inadimplencia}</td>
                 </tr>

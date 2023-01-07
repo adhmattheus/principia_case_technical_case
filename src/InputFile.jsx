@@ -33,7 +33,6 @@ export function InputFile() {
     Papa.parse(e.target.files[0], {
       header: true,
       skipEmptyLines: true,
-      // dynamicTyping: true,
       complete: function (results) {
         setinputFileData(results.data.map(item => {
           item.valor = Number(item.valor);
@@ -54,8 +53,19 @@ export function InputFile() {
 
       const keyI = keys[i];
       let _totalAmountOpen = 0;
+      let _totalAmountOpenByMonth = 0;
+      let _totalAmountPaidByMonth = 0;
       let _totalAmountPaid = 0;
       let _totalAmount = 0;
+
+      _totalAmountOpenByMonth += months[keyI]
+        .filter((item) => item.status == "aberto")
+        .reduce((acc, item) => acc + parseFloat(item.valor), 0);
+      _totalAmountPaidByMonth += months[keyI]
+        .filter((item) => item.status == "pago")
+        .reduce((acc, item) => acc + parseFloat(item.valor), 0);
+
+      console.log(Number(_totalAmountOpenByMonth) + Number(_totalAmountOpenByMonth));
 
       for (let j = 0; j <= i; j++) {
         const keyJ = keys[j];
@@ -73,8 +83,11 @@ export function InputFile() {
 
       let inadimplencia = Number((_totalAmountOpen / _totalAmount).toFixed(3));
 
+
       extractByMonth.push({
         mes: keyI,
+        totalValorPagoMes: _totalAmountPaidByMonth,
+        totalValorAbertoMes: _totalAmountOpenByMonth,
         totalValorPago: _totalAmountPaid,
         totalValorAberto: _totalAmountOpen,
         valorTotal: _totalAmount,

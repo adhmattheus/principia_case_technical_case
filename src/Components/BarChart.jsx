@@ -49,13 +49,13 @@ export function BarChart() {
 
     setPaidValueTotal(extractByMonth.map(
       function (item) {
-        return (parseFloat(item.totalValorPago).toFixed(2));
+        return (parseFloat(item.totalValorPagoMes).toFixed(2));
       }
     ));
 
     setOpenValueTotal(extractByMonth.map(
       function (item) {
-        return (parseFloat(item.totalValorAberto).toFixed(2));
+        return (parseFloat(item.totalValorAbertoMes).toFixed(2));
       }
     ));
 

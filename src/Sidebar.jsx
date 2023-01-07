@@ -123,7 +123,7 @@ export function Sidebar() {
               <div className={styles.card_single}>
                 <div>
                   <h1>{amountEnrollments}</h1>
-                  <span>Matriculas</span>
+                  <span>Matrículas</span>
                 </div>
                 <div>
                   <span><Student /></span>
